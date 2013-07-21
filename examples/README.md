@@ -214,8 +214,10 @@ The `Mapper` code in phase one just produces the pair `<owner,_id>` for each dev
 	        for(Text val : pValues){
 	            devices.add(new ObjectId(val.toString()));
 	        }
-			BasicBSONObject devices_list = new BasicBSONObject("devices", devices);
-	        BasicBSONObject output = new BasicBSONObject("_id", pKey);
+
+		BasicBSONObject devices_list = new BasicBSONObject("devices", devices);
+                BasicBSONObject update = new BasicBSONObject("$pushAll", devices_list);
+
 	        pContext.write(null, new MongoUpdateWritable(query, update, true, false));
 	    }
 	}
