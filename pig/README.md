@@ -129,7 +129,7 @@ making sure that we update any existing documents with the same `first` and `las
 STORE data INTO 'mongodb://localhost:27017/test.persons_info'
       	   USING com.mongodb.hadoop.pig.MongoUpdateStorage(
                  '{first:"\$f", last:"\$l"}',
-                 '{$set:{gender:"\$g"}}',
+                 '{\$set:{gender:"\$g"}}',
                  'f:chararray, l:chararray, g:chararray, age:int, cars:{t:(car:chararray)}'
 	   );
 ```
@@ -144,7 +144,7 @@ Next, let's say, we want to include the `age` and `cars` for each person into th
 STORE data INTO 'mongodb://localhost:27017/test.persons_info'
            USING com.mongodb.hadoop.pig.MongoUpdateStorage(
                  '{first:"\$f", last:"\$l"}',
-                 '{$set:{age:"\$age"}, $pushAll:{cars:"\$cars"}}',
+                 '{\$set:{age:"\$age"}, \$pushAll:{cars:"\$cars"}}',
                  'f:chararray, l:chararray, g:chararray, age:int, cars:{t:(car:chararray)}'
            );
 ```
@@ -160,7 +160,7 @@ Notice that every element in `cars` is a named map with one key `car`. In most c
 STORE data INTO 'mongodb://localhost:27017/test.persons_info'
            USING com.mongodb.hadoop.pig.MongoUpdateStorage(
                  '{first:"\$f", last:"\$l"}',
-                 '{$set:{age:"\$age"}, $pushAll:{cars:"\$cars"}}',
+                 '{\$set:{age:"\$age"}, \$pushAll:{cars:"\$cars"}}',
                  'f:chararray, l:chararray, age:int, cars:{t:(car:chararray)}'
                  'car'
            );
